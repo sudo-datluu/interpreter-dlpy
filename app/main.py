@@ -1,5 +1,5 @@
 import sys
-
+from .scanner import Scanner
 
 def main():
     # You can use print statements as follows for debugging, they'll be visible when running tests.
@@ -19,12 +19,13 @@ def main():
     with open(filename) as file:
         file_contents = file.read()
 
+    scanner = Scanner(file_contents)
     # Uncomment this block to pass the first stage
     if file_contents:
-        raise NotImplementedError("Scanner not implemented")
+        scanner.scan()
     else:
-        print("EOF  null") # Placeholder, remove this line when implementing the scanner
-
+        pass
+    scanner.print_eof()
 
 if __name__ == "__main__":
     main()
