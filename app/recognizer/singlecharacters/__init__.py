@@ -1,0 +1,1 @@
+from .singlecharacters import SINGLE_CHARACTERS_MAPPER
