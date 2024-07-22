@@ -1,0 +1,4 @@
+PARENTHESES_MAPPER = {
+    "(": "LEFT_PAREN",
+    ")": "RIGHT_PAREN",
+}

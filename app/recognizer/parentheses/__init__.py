@@ -1,4 +1,1 @@
-PARENTHESES_MAPPER = {
-    "(": "LEFT_PAREN",
-    ")": "RIGHT_PAREN",
-}
+from .parentheses import PARENTHESES_MAPPER
