@@ -8,7 +8,24 @@ class Scanner:
     
     def scan(self, stderr_stream: StdErrStream, std_stream: Streamer):
         for line_number, line in enumerate(self.file_contents.splitlines()):
-            for token in line:
+            # for token in line:
+            #     self.regconizer.recognize(
+            #         token = token,
+            #         line_number = line_number,
+            #         stderr_stream = stderr_stream,
+            #         std_stream=std_stream
+            #     )
+            offset = 0
+            while offset < len(line):
+                # Handle two character tokens
+                token = None
+                if offset + 1 < len(line) and self.regconizer.is_regconized(line[offset:offset+2]):
+                    token = line[offset:offset+2]
+                    offset += 2
+                # Handle single character token
+                else:
+                    token = line[offset]
+                    offset += 1
                 self.regconizer.recognize(
                     token = token,
                     line_number = line_number,
