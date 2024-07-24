@@ -3,4 +3,6 @@ OPERATORS_MAPPER = {
     "-": "MINUS",
     "=": "EQUAL",
     "==": "EQUAL_EQUAL",
+    "!": "BANG",
+    "!=": "BANG_EQUAL",
 }
