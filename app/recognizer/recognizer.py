@@ -50,7 +50,9 @@ class Recognizer:
             std_stream: Streamer
         ):
         dltoken = self.tbl.get(token, None)
-        if dltoken is None:
+        if not dltoken and token:
+            if ord(token) == 9 or ord(token) == 32:
+                return
             err_msg = f"[line {line_number+1}] Error: Unexpected character: {token}"
             stderr_stream.add(err_msg)
             return

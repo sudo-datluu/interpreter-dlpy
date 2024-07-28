@@ -12,8 +12,17 @@ class Scanner:
             while offset < len(line):
                 # Handle two character tokens
                 token = None
-                if offset + 1 < len(line) and line[offset:offset+2] == "//":
+                # comment
+                if line[offset:offset+2] == "//":
                     break
+                # Tab
+                if line[offset:offset+7] == '<|TAB|>':
+                    offset += 7
+                    continue
+                # Space
+                if line[offset:offset+9] == '<|SPACE|>':
+                    offset += 9
+                    continue
                 if offset + 1 < len(line) and self.regconizer.is_regconized(line[offset:offset+2]):
                     token = line[offset:offset+2]
                     offset += 2
