@@ -36,7 +36,11 @@ class Scanner:
                     stderr_stream = stderr_stream,
                     std_stream=std_stream
                 )
-    
+            self.regconizer.process_last_line(
+                line_number=line_number,
+                stderr_stream=stderr_stream, 
+                std_stream=std_stream
+            )
     def print_eof(self):
         print("EOF  null")
         return
