@@ -12,6 +12,20 @@ class Scanner:
             while offset < len(line):
                 # Handle two character tokens
                 token = None
+                # String handle
+                if line[offset] == "\"":
+                    res_msg = self.regconizer.string_buffer.handle()
+                    if res_msg:
+                        res_msg = f"STRING \"{res_msg}\" {res_msg}"
+                        std_stream.add(res_msg)
+                    offset += 1
+                    continue
+                # Add token to the buffer
+                else:
+                    if self.regconizer.string_buffer.flag:
+                        self.regconizer.string_buffer.buffer += line[offset]
+                        offset += 1
+                        continue
                 # comment
                 if line[offset:offset+2] == "//":
                     break

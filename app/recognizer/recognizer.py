@@ -68,32 +68,16 @@ class Recognizer:
             stderr_stream: StdErrStream,
             std_stream: Streamer
         ):
-
-        # Meet the token for string
-        if token == "\"": 
-            reg_msg = self.string_buffer.handle()
-            if reg_msg: 
-                reg_msg = f"STRING \"{reg_msg}\" {reg_msg}"
-                std_stream.add(reg_msg)
-
-        # Handle other cases
-        else:
-            # If the string buffer is active, add the token to the buffer
-            if self.string_buffer.flag:
-                self.string_buffer.buffer += token
-                return
-
-            dltoken = self.tbl.get(token, None)
-            if not dltoken and token:
-                # Space or tab token
-                if ord(token) == 9 or ord(token) == 32: return
-                err_msg = f"[line {line_number+1}] Error: Unexpected character: {token}"
-                stderr_stream.add(err_msg)
-                return
-            reg_msg = dltoken.__str__()
+        dltoken = self.tbl.get(token, None)
+        if not dltoken and token:
+            # Space or tab token
+            if ord(token) == 9 or ord(token) == 32: return
+            err_msg = f"[line {line_number+1}] Error: Unexpected character: {token}"
+            stderr_stream.add(err_msg)
+            return
+        reg_msg = dltoken.__str__()
 
         std_stream.add(reg_msg)
-        return
 
     def process_last_line(
             self, 
@@ -102,7 +86,7 @@ class Recognizer:
             std_stream: Streamer
         ):
             if self.string_buffer.flag:
-                err_msg = f"[line {line_number+1}] Error: Unterminated string"
+                err_msg = f"[line {line_number+1}] Error: Unterminated string."
                 stderr_stream.add(err_msg)
 
             self.string_buffer._reset()
